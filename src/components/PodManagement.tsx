@@ -522,7 +522,7 @@ export default function PodManagement() {
       </div>
 
       {/* Existing Users */}
-      <PodTable pods={binningUsers} title="Existing Binning Users" showTrafficButton={true} />
+      <PodTable pods={binningUsers} title="Existing Benign Users" showTrafficButton={true} />
       <PodTable pods={attackingUsers} title="Existing Attacking Users" showAttackControls={true} />
     </div>
   );

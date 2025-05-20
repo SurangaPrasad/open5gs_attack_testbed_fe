@@ -22,7 +22,6 @@ export type AttackType =
   | 'teid-bruteforce'
   | 'upf-dos'
   | 'malformed-gtpu'
-  | 'traces';
 
 interface AttackControlsProps {
   pod: Pod;
@@ -45,8 +44,7 @@ export default function AttackControls({ pod, targetIP, onStatusChange, onError 
     'gtp-encapsulation', 
     'teid-bruteforce',
     'upf-dos',
-    'malformed-gtpu',
-    'traces'
+    'malformed-gtpu'
   ];
 
   useEffect(() => {
@@ -69,7 +67,7 @@ export default function AttackControls({ pod, targetIP, onStatusChange, onError 
 
   const fetchAttackStatus = async (attackType: AttackType) => {
     try {
-      const baseEndpoint = `http://100.123.47.114:8081/${attackType === 'traces' ? 'traces/status' : `status-${attackType}`}`;
+      const baseEndpoint = `http://100.123.47.114:8081/${`status-${attackType}`}`;
       
       // Use URLSearchParams to build query string
       const params = new URLSearchParams({
@@ -119,7 +117,7 @@ export default function AttackControls({ pod, targetIP, onStatusChange, onError 
     setIsRunningAttack(true);
     
     try {
-      const endpoint = `http://100.123.47.114:8081/${attackType === 'traces' ? 'traces/start' : `run-${attackType}`}`;
+      const endpoint = `http://100.123.47.114:8081/${`run-${attackType}`}`;
       
       const response = await fetch(endpoint, {
         method: 'POST',
@@ -158,7 +156,7 @@ export default function AttackControls({ pod, targetIP, onStatusChange, onError 
     setIsStoppingAttack(true);
     
     try {
-      const endpoint = `http://100.123.47.114:8081/${attackType === 'traces' ? 'traces/stop' : `stop-${attackType}`}`;
+      const endpoint = `http://100.123.47.114:8081/${`stop-${attackType}`}`;
       
       const response = await fetch(endpoint, {
         method: 'POST',
@@ -195,7 +193,6 @@ export default function AttackControls({ pod, targetIP, onStatusChange, onError 
       case 'teid-bruteforce': return 'TEID Bruteforce';
       case 'upf-dos': return 'UPF DoS';
       case 'malformed-gtpu': return 'Malformed GTPU';
-      case 'traces': return 'Packet Traces';
       default: return attackType;
     }
   };
